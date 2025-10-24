@@ -1,0 +1,18 @@
+ion-card {
+  margin: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  img {
+    border-radius: 16px 16px 0 0;
+  }
+
+  ion-card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  ion-card-subtitle {
+    color: var(--ion-color-medium);
+  }
+}
