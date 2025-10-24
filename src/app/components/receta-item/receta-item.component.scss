@@ -16,3 +16,10 @@ ion-card {
     color: var(--ion-color-medium);
   }
 }
+
+.receta-imagen {
+  width: 15%;   
+  height: 200px;   
+  object-fit: cover;
+  border-radius: 8px; 
+}
