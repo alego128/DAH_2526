@@ -1,0 +1,135 @@
+ion-content {
+  --background: linear-gradient(135deg, #ffe6eb, #ffd5d5, #ffcccc);
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  color: #2b2b2b;
+  padding: 20px;
+}
+
+/* ======== NECESARIO PARA QUE LOS SKELETONS TENGAN SOMBRA ======== */
+:root {
+  --ion-skeleton-text-animation: pulse;
+}
+
+/* Ajuste global de skeleton para que la sombra sea visible */
+ion-skeleton-text {
+  --background: rgba(0, 0, 0, 0.12);
+  --background-rgb: 0, 0, 0; /* necesario para sombras laterales */
+  border-radius: 8px;
+}
+
+/* Evita que la sombra quede recortada */
+.img-skeleton {
+  width: 100%;
+  height: 150px;
+  display: block;
+}
+
+/* ======== Header ======== */
+ion-toolbar {
+  --background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  --color: #fff;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(255, 107, 107, 0.4);
+}
+
+ion-title {
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+/* ======== NUEVO GRID ======== */
+.recetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  justify-content: center;
+  justify-items: center;
+  align-items: stretch;
+  padding: 20px 20px;
+  
+}
+
+/* ======== Ajuste tarjeta ======== */
+app-receta-item {
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+  display: flex;
+}
+
+.receta-skeleton {
+  width: 100%;
+  max-width: 320px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-skeleton {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+
+/* ======== Inputs ======== */
+ion-input,
+ion-textarea {
+  --highlight-color-focused: #2b2b2b;
+  --color-focused: #2b2b2b;
+  --placeholder-color: #2b2b2b;
+}
+
+/* ======== BOTÓN FLOTANTE ======== */
+ion-fab {
+  bottom: 80px !important;
+  left: 15px;
+  z-index: 9999;
+}
+
+.fab-receta {
+  --background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  --color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.6);
+  }
+
+  &:active {
+    transform: scale(0.93);
+  }
+}
+
+/* ======== BOTÓN AÑADIR RECETA EN FORMULARIO ======== */
+.boton-receta {
+  --background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  --color: #fff;
+  font-weight: 600;
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
