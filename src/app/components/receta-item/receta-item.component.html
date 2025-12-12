@@ -1,0 +1,31 @@
+<ion-card 
+  *ngIf="receta"
+  (click)="abrirDetalle()"
+  [class.facil]="receta.dificultad === 'Fácil'"
+  [class.media]="receta.dificultad === 'Media'"
+  [class.dificil]="receta.dificultad === 'Difícil'">
+
+  <!-- Imagen opcional -->
+  <img *ngIf="receta.imagen" [src]="receta.imagen" [alt]="receta.nombre" class="receta-imagen" />
+
+  <ion-card-header>
+    <ion-card-title>{{ receta.nombre | titlecase }}</ion-card-title>
+    <ion-card-subtitle>
+      {{ receta.categoria | titlecase }} - {{ receta.dificultad }}
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Descripción opcional -->
+    <p *ngIf="receta.descripcion">{{ receta.descripcion }}</p>
+    
+    <p>
+      <strong>Tiempo de preparación:</strong> {{ receta.tiempoPreparacion | number }} min
+    </p>
+
+    <!-- Ingredientes opcionales -->
+    <p *ngIf="receta.ingredientes?.length">
+      <strong>Ingredientes:</strong> {{ receta.ingredientes.join(', ') }}
+    </p>
+  </ion-card-content>
+</ion-card>
