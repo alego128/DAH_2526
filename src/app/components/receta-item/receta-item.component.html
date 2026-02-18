@@ -9,23 +9,48 @@
   <img *ngIf="receta.imagen" [src]="receta.imagen" [alt]="receta.nombre" class="receta-imagen" />
 
   <ion-card-header>
-    <ion-card-title>{{ receta.nombre | titlecase }}</ion-card-title>
+    <ion-card-title>
+      <ion-input
+        [(ngModel)]="receta.nombre"
+        placeholder="Nombre de la receta">
+      </ion-input>
+    </ion-card-title>
     <ion-card-subtitle>
-      {{ receta.categoria | titlecase }} - {{ receta.dificultad }}
+      <ion-input
+        [(ngModel)]="receta.categoria"
+        placeholder="Categoría">
+      </ion-input>
+      - 
+      <ion-select [(ngModel)]="receta.dificultad" interface="popover">
+        <ion-select-option value="Fácil">Fácil</ion-select-option>
+        <ion-select-option value="Media">Media</ion-select-option>
+        <ion-select-option value="Difícil">Difícil</ion-select-option>
+      </ion-select>
     </ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
-    <!-- Descripción opcional -->
-    <p *ngIf="receta.descripcion">{{ receta.descripcion }}</p>
-    
+    <ion-textarea
+      [(ngModel)]="receta.descripcion"
+      placeholder="Descripción de la receta">
+    </ion-textarea>
+
     <p>
-      <strong>Tiempo de preparación:</strong> {{ receta.tiempoPreparacion | number }} min
+      <strong>Tiempo de preparación:</strong> 
+      <ion-input type="number" [(ngModel)]="receta.tiempoPreparacion"></ion-input> min
     </p>
 
-    <!-- Ingredientes opcionales -->
     <p *ngIf="receta.ingredientes?.length">
       <strong>Ingredientes:</strong> {{ receta.ingredientes.join(', ') }}
     </p>
+
+    <!-- Botones de acción -->
+    <ion-button expand="block" color="primary" (click)="guardarClick()">
+      Guardar cambios
+    </ion-button>
+
+    <ion-button expand="block" color="danger" (click)="borrarClick($event)">
+      Eliminar
+    </ion-button>
   </ion-card-content>
 </ion-card>

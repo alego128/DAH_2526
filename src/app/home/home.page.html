@@ -78,12 +78,10 @@
   <div *ngIf="cargando">
     <div class="recetas-grid">
       <ion-card *ngFor="let s of skeletons" class="receta-skeleton">
-        <!-- Imagen skeleton -->
         <div class="img-skeleton">
           <ion-skeleton-text animated style="width: 100%; height: 100%;"></ion-skeleton-text>
         </div>
 
-        <!-- Texto skeleton -->
         <ion-card-content>
           <ion-skeleton-text animated style="width: 60%; height: 20px; margin-top: 10px;"></ion-skeleton-text>
           <ion-skeleton-text animated style="width: 90%; height: 14px; margin-top: 6px;"></ion-skeleton-text>
@@ -99,7 +97,9 @@
     <div class="recetas-grid">
       <app-receta-item 
         *ngFor="let receta of recetas" 
-        [receta]="receta">
+        [receta]="receta"
+        (onGuardar)="guardarCambios(receta)"
+        (onBorrar)="borrarReceta(receta.id)">
       </app-receta-item>
     </div>
   </div>

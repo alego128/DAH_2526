@@ -9,6 +9,8 @@ import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 
+import { provideHttpClient } from '@angular/common/http';
+
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
@@ -17,6 +19,8 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    
+    provideHttpClient(), 
     
     // 2. Configuramos Ionic Storage
     importProvidersFrom(
