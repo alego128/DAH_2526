@@ -7,4 +7,6 @@ export interface Receta {
   categoria: string;
   dificultad?: 'Fácil' | 'Media' | 'Difícil';
   ingredientes: string[];
+  latitud?: number;
+  longitud?: number;
 }

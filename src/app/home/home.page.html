@@ -1,7 +1,37 @@
 <app-header></app-header>
+
 <ion-content>
 
-  <!-- BOTÓN FLOTANTE -->
+  <!-- TARJETA DE UBICACIÓN GPS -->
+  <ion-card class="ion-margin">
+    <ion-card-header>
+      <ion-card-title>Mi Ubicación</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <p *ngIf="!locationService.latitud">Sin datos GPS</p>
+      
+      <div *ngIf="locationService.latitud">
+        <p>Lat: {{ locationService.latitud }}</p>
+        <p>Long: {{ locationService.longitud }}</p>
+        
+        <!-- Botón para abrir Google Maps -->
+        <ion-button 
+          href="https://www.google.com/maps/search/?api=1&query={{locationService.latitud}},{{locationService.longitud}}" 
+          target="_blank">
+          Ver en Mapa
+          <ion-icon name="map" slot="end"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-button expand="block" (click)="obtenerGPS()">
+        <ion-icon name="locate" slot="start"></ion-icon>
+        Obtener Coordenadas
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- BOTÓN FLOTANTE FORMULARIO (+) -->
   <ion-fab vertical="bottom" horizontal="start" slot="fixed" style="z-index: 100;">
     <ion-fab-button class="fab-receta" (click)="toggleFormulario()">
       {{ mostrarFormulario ? 'x' : '+' }}
@@ -11,6 +41,7 @@
   <!-- FORMULARIO -->
   <div *ngIf="mostrarFormulario" style="z-index: 50; position: relative;">
     <ion-list>
+
       <ion-item>
         <ion-input
           label="Nombre de la receta"
@@ -20,13 +51,17 @@
         </ion-input>
       </ion-item>
 
+      <!-- BOTÓN PARA TOMAR FOTO -->
       <ion-item>
-        <ion-input
-          label="URL de imagen"
-          label-placement="floating"
-          placeholder="assets/mi-imagen.jpg"
-          [(ngModel)]="nuevaReceta.imagen">
-        </ion-input>
+        <ion-button expand="block" (click)="addPhoto()">
+          <ion-icon name="camera" slot="start"></ion-icon>
+          Tomar Foto
+        </ion-button>
+      </ion-item>
+
+      <!-- MOSTRAR FOTO SI EXISTE -->
+      <ion-item *ngIf="nuevaReceta.imagen">
+        <ion-img [src]="nuevaReceta.imagen" style="margin-top: 10px; border-radius: 10px;"></ion-img>
       </ion-item>
 
       <ion-item>
@@ -67,7 +102,19 @@
           [(ngModel)]="nuevaReceta.descripcion">
         </ion-textarea>
       </ion-item>
+
     </ion-list>
+
+    <ion-item>
+  <ion-button expand="block" (click)="obtenerGPS()">
+    <ion-icon name="locate" slot="start"></ion-icon>
+    Guardar Coordenadas
+  </ion-button>
+</ion-item>
+
+<ion-item *ngIf="nuevaReceta.latitud && nuevaReceta.longitud">
+  <p>Lat: {{ nuevaReceta.latitud }}, Long: {{ nuevaReceta.longitud }}</p>
+</ion-item>
 
     <ion-button expand="block" class="boton-receta ion-margin" (click)="agregarReceta()">
       Añadir Receta
@@ -92,8 +139,16 @@
     </div>
   </div>
 
+  <!-- MENSAJE SI NO HAY RECETAS -->
+  <div *ngIf="!cargando && recetas.length === 0" class="ion-text-center ion-padding">
+    <ion-text color="medium">
+      <h2>No hay recetas todavía 🍽️</h2>
+      <p>Pulsa el botón + para añadir la primera.</p>
+    </ion-text>
+  </div>
+
   <!-- CONTENIDO REAL -->
-  <div *ngIf="!cargando">
+  <div *ngIf="!cargando && recetas.length > 0">
     <div class="recetas-grid">
       <app-receta-item 
         *ngFor="let receta of recetas" 

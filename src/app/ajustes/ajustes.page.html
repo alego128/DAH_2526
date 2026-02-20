@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!-- Botón personalizado para volver -->
       <ion-button (click)="volverHome()">
         <ion-icon slot="icon-only" [icon]="arrowBackOutline"></ion-icon>
       </ion-button>
@@ -17,6 +16,21 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Sección de Usuario -->
+  <ion-list>
+    <ion-list-header>Usuario</ion-list-header>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombreUsuario" placeholder="Introduce tu nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-button expand="block" (click)="cambiarNombre()">Guardar nombre</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sección de Apariencia -->
   <ion-list>
     <ion-list-header>Apariencia</ion-list-header>
     <ion-item>

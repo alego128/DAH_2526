@@ -1,3 +1,5 @@
+// environment.prod.ts
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://miapi.com'
 };

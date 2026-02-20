@@ -1,37 +1,72 @@
 // src/app/services/recetas.service.ts
+
 import { Injectable } from '@angular/core';
-import { Receta } from '../interfaces/receta';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, catchError, throwError } from 'rxjs';
+import { Receta } from '../interfaces/receta';
+import { environment } from '../../environments/environment'; // <-- importamos environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private _url = 'http://localhost:3000/recetas';
+
+  // Usamos la URL base desde environment
+  private readonly url = `${environment.apiUrl}/recetas`;
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Obtener recetas desde el servidor
+  // ---------- GET: Obtener todas las recetas ----------
   getRecetas(): Promise<Receta[]> {
-    return firstValueFrom(this.http.get<Receta[]>(this._url));
+    return firstValueFrom(
+      this.http.get<Receta[]>(this.url).pipe(
+        catchError((error) => {
+          console.error('Error en getRecetas:', error);
+          return throwError(() => error);
+        })
+      )
+    );
   }
 
-  // ✅ Agregar receta al servidor
+  // ---------- POST: Agregar receta ----------
   agregarReceta(receta: Receta): Promise<Receta> {
     const { id, ...recetaSinId } = receta;
-    return firstValueFrom(this.http.post<Receta>(this._url, recetaSinId));
+
+    return firstValueFrom(
+      this.http.post<Receta>(this.url, recetaSinId).pipe(
+        catchError((error) => {
+          console.error('Error en agregarReceta:', error);
+          return throwError(() => error);
+        })
+      )
+    );
   }
 
-  // 🟢 Actualizar receta (PUT /recetas/:id)
+  // ---------- PUT: Actualizar receta ----------
   updateReceta(receta: Receta): Promise<Receta> {
-    const urlEspecifica = `${this._url}/${receta.id}`;
-    return firstValueFrom(this.http.put<Receta>(urlEspecifica, receta));
+    const urlEspecifica = `${this.url}/${receta.id}`;
+
+    return firstValueFrom(
+      this.http.put<Receta>(urlEspecifica, receta).pipe(
+        catchError((error) => {
+          console.error('Error en updateReceta:', error);
+          return throwError(() => error);
+        })
+      )
+    );
   }
 
-  // 🔴 Borrar receta (DELETE /recetas/:id)
+  // ---------- DELETE: Borrar receta ----------
   deleteReceta(id: number): Promise<void> {
-    const urlEspecifica = `${this._url}/${id}`;
-    return firstValueFrom(this.http.delete<void>(urlEspecifica));
+    const urlEspecifica = `${this.url}/${id}`;
+
+    return firstValueFrom(
+      this.http.delete<void>(urlEspecifica).pipe(
+        catchError((error) => {
+          console.error('Error en deleteReceta:', error);
+          return throwError(() => error);
+        })
+      )
+    );
   }
 }
