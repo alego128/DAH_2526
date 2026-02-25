@@ -10,7 +10,9 @@ import { settingsOutline, camera } from 'ionicons/icons';
 import { AppHeaderComponent } from "../components/app-header/app-header.component";
 import { TaskService } from '../services/recetas.service';
 import { PhotoService } from '../services/photo'; 
-import { LocationService } from '../services/location.service'; // 👈 Importa tu servicio de GPS
+import { LocationService } from '../services/location.service'; 
+import { SettingsService } from '../services/settings.service'; 
+import { searchOutline, filterOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +33,9 @@ export class HomePage {
   cargando = false;
   mostrarFormulario = false;
   recetas: Receta[] = [];
+  nombreUsuario: string = '';
+  textoBuscar: string = ''; 
+  criterioOrden: string = 'nombre'; 
 
   // Para mostrar coordenadas en la vista
   latitud: number | null = null;
@@ -54,9 +59,14 @@ export class HomePage {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public photoService: PhotoService,
-    public locationService: LocationService // 👈 Inyecta LocationService
+    public locationService: LocationService,
+    public settingsService: SettingsService
   ) {
-    addIcons({ settingsOutline, camera });
+    addIcons({ settingsOutline, camera, searchOutline, filterOutline});
+  }
+
+  async ionViewWillEnter() {
+    this.nombreUsuario = await this.settingsService.get('nombre_usuario') || 'Chef';
   }
 
   // ---------- FAB Cámara ----------
@@ -147,6 +157,27 @@ export class HomePage {
       await loading.dismiss();
     }
   }
+
+  get recetasVisibles() {
+  // 1. Filtrar por texto (nombre o categoría)
+  let filtradas = this.recetas.filter(r => {
+    const busqueda = this.textoBuscar.toLowerCase();
+    return r.nombre.toLowerCase().includes(busqueda) || 
+           r.categoria.toLowerCase().includes(busqueda);
+  });
+
+  // 2. Ordenar según el criterio seleccionado
+  return filtradas.sort((a, b) => {
+    if (this.criterioOrden === 'tiempo') {
+      return a.tiempoPreparacion - b.tiempoPreparacion;
+    } else if (this.criterioOrden === 'dificultad') {
+      const peso = { 'Fácil': 1, 'Media': 2, 'Difícil': 3 };
+      return (peso[a.dificultad || 'Fácil']) - (peso[b.dificultad || 'Fácil']);
+    } else {
+      return a.nombre.localeCompare(b.nombre);
+    }
+  });
+}
 
   // ---------- Agregar receta ----------
   async agregarReceta() {

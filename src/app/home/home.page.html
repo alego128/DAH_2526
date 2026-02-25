@@ -1,6 +1,10 @@
 <app-header></app-header>
 
 <ion-content>
+<!-- Nombre de usuario -->
+    <div class="ion-padding">
+    <h1>Hola, {{ nombreUsuario }} 👋</h1>
+  </div>
 
   <!-- TARJETA DE UBICACIÓN GPS -->
   <ion-card class="ion-margin">
@@ -146,6 +150,29 @@
       <p>Pulsa el botón + para añadir la primera.</p>
     </ion-text>
   </div>
+
+<ion-searchbar 
+  placeholder="Buscar receta..." 
+  [(ngModel)]="textoBuscar" 
+  animated="true">
+</ion-searchbar>
+
+<ion-item lines="none">
+  <ion-select label="Ordenar por" [(ngModel)]="criterioOrden" interface="popover">
+    <ion-select-option value="nombre">Nombre (A-Z)</ion-select-option>
+    <ion-select-option value="tiempo">Más rápidas</ion-select-option>
+    <ion-select-option value="dificultad">Dificultad</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<div class="recetas-grid">
+  <app-receta-item 
+    *ngFor="let receta of recetasVisibles" 
+    [receta]="receta"
+    (onGuardar)="guardarCambios(receta)"
+    (onBorrar)="borrarReceta(receta.id)">
+  </app-receta-item>
+</div>
 
   <!-- CONTENIDO REAL -->
   <div *ngIf="!cargando && recetas.length > 0">
