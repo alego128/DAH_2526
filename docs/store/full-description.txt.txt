@@ -1,0 +1,17 @@
+RecetasDAH es una aplicación móvil diseñada para ayudarte a descubrir y gestionar recetas de cocina de forma sencilla, rápida y organizada.
+
+Con una interfaz intuitiva, podrás navegar entre diferentes recetas, ver sus ingredientes, instrucciones detalladas y guardar tus favoritas.
+
+CARACTERÍSTICAS PRINCIPALES:
+✔ Recetas organizadas por categorías
+✔ Detalles completos de preparación
+✔ Interfaz sencilla y rápida
+✔ Acceso fácil a tus recetas favoritas
+✔ Diseño optimizado para móviles
+
+IDEAL PARA:
+🍳 Personas que quieren cocinar en casa
+⏱ Usuarios que buscan recetas rápidas
+📱 Cualquiera que quiera mejorar su alimentación
+
+RecetasDAH convierte la cocina en una experiencia sencilla, accesible y agradable desde tu móvil.

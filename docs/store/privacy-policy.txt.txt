@@ -1,0 +1,9 @@
+POLÍTICA DE PRIVACIDAD
+
+Esta aplicación no recopila, almacena ni comparte datos personales del usuario.
+
+No se requiere registro ni inicio de sesión.
+
+No se utilizan servicios de seguimiento ni analítica externa.
+
+La app funciona completamente en el dispositivo del usuario.
